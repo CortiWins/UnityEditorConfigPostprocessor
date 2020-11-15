@@ -23,7 +23,6 @@ using UnityEditor;
 /// Discussion why the old code no longer works: 
 /// https://forum.unity.com/threads/bug-unity-2020-1-enable_vstu-define-is-gone-and-projectfilegeneration-event-isnt-raised-anymore.942664/
 /// </summary>
-/// <remarks></remarks>
 public class EditorConfigPostprocessor
     : AssetPostprocessor
 {
@@ -33,15 +32,19 @@ public class EditorConfigPostprocessor
     private const string FindString = "EndProject\r\nGlobal";
 
     /// <summary>
-    /// The replacement term needs to include the parts removed by <see cref="FindString"/>.
-    /// the .editorConfig is added on the solution level.
     /// The GUID "2150E333-8FDC-42A3-9474-1A3956D46DE8" is a constant for "Solution Folder" items.
     /// https://www.codeproject.com/Reference/720512/List-of-Visual-Studio-Project-Type-GUIDs
+    /// </summary>
+    private const string GuidSolutionFolder = "2150E333-8FDC-42A3-9474-1A3956D46DE8";
+
+    /// <summary>
+    /// The replacement term needs to include the parts removed by <see cref="FindString"/>.
+    /// the .editorConfig is added on the solution level.
     /// The GUID "B24FE069-BB5F-4F16-BCDA-61C28EABC46B" is a random identifier für the file.
     /// </summary>
     private const string ReplaceString =
         "EndProject\r\n" +
-        "Project(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"Solution Items\", \"Solution Items\", " +
+        "Project(\"{" + GuidSolutionFolder + "}\") = \"Solution Items\", \"Solution Items\", " +
         "\"{B24FE069-BB5F-4F16-BCDA-61C28EABC46B}\"\r\n"+
         "	ProjectSection(SolutionItems) = preProject\r\n" +
         "		.editorconfig = .editorconfig\r\n" +
@@ -58,7 +61,7 @@ public class EditorConfigPostprocessor
     public static string OnGeneratedSlnSolution(string path, string content)
     {
         // As the file is modified, not neccesarily created, check if there already is an entry for SolutionItems. 
-        if (!content.Contains("2150E333-8FDC-42A3-9474-1A3956D46DE8"))
+        if (!content.Contains(GuidSolutionFolder))
         {
             content = content.Replace(FindString, ReplaceString);
         }
