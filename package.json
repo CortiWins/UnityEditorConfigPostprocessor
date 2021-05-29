@@ -1,0 +1,15 @@
+{
+  "name": "com.cortiwins.editorconfig",
+  "version": "1.0.0",
+  "license": "MIT",
+  "displayName": "EditorConfig Postprocessor",
+  "description": "A script to include the .editorConfig in a Visual Studio Solution for a Unity project.",
+  "unity": "2020.1",
+  "author": {
+    "name": "CortiWins",
+    "url": "https://github.com/CortiWins"
+  },
+  "dependencies": {
+    "com.unity.ide.visualstudio": "2.0.5"
+  }
+}
