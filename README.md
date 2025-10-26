@@ -4,6 +4,7 @@
 # What and Why
 In Unity 2020 the old way of inserting the editorConfig-File into the visual studio solution file now longer works.
 This script will fill the gap.
+Still works fine with Unity 6.X btw ;-)
  
 Requirements
 * Unity 2020 with, "Visual Studio Editor".Package in Projekt at least 2.0.5.
